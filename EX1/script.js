@@ -16,13 +16,11 @@ window.onload = function () {
         name: 'Bitterbal',
         price: '5'
     });
-
-
     dishes.forEach(element => {
-        let radio = `<input type="radio" id="${element.id}">
+        let radio = `<input type="radio" id="${element.id}" name="options">
         <label for="${element.id}">${element.name}</label>`
         console.log(radio);
-        document.getElementById('message').innerHTML = radio;
+        document.getElementById('message').insertAdjacentHTML("afterend", radio);
 
     });
 
