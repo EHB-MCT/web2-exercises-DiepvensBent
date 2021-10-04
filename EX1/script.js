@@ -1,6 +1,12 @@
 "Use Strict";
 let price = 0;
 let dishes = [];
+let allPreviousOrders = ["", ""];
+console.log(allPreviousOrders);
+if (localStorage.getItem("infiniteScrollEnabled") === null) {
+    let localData = localStorage.getItem("");
+    allPreviousOrders = JSON.parse(localData);
+}
 dishes.push({
     id: '1',
     name: 'Burger and french fries',
@@ -59,6 +65,7 @@ function printOrder() {
     });
     let orderMessage = `<p>The order for the customer ${orderDetails.name} is the following:  ${orderDetails.order}. The customer may be notified by email: ${orderDetails.email}. The order will cost ${price} euro.</p>`
     document.getElementById('message').innerHTML = orderMessage;
+    localStorage.setItem('previousOrder', orderMessage);
 };
 
 function calculatePrice() {
