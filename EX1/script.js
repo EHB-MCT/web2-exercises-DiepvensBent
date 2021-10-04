@@ -44,8 +44,6 @@ window.onload = function () {
 
 function printOrder() {
     calculatePrice();
-    console.log(price);
-
     let orderDetails = {
         name: "",
         email: "",
@@ -71,7 +69,6 @@ function calculatePrice() {
             price = price + element.price;
         };
     });
-    console.log(price);
     let priceMessage = `<h1>Price: ${price} euro.</h1>`;
     document.getElementById('priceText').innerHTML = priceMessage;
 };
