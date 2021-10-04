@@ -17,16 +17,13 @@ window.onload = function () {
         price: '5'
     });
     dishes.forEach(element => {
-        let radio = `<input type="radio" id="${element.id}" name="options">
+        let radio = `<input type="radio" id="${element.name}" name="options">
         <label for="${element.id}">${element.name}</label>`
         console.log(radio);
-        document.getElementById('message').insertAdjacentHTML("afterend", radio);
+        document.getElementById('options').insertAdjacentHTML("afterend", radio);
+
 
     });
-
-
-
-
     document.getElementById("form").addEventListener('submit', event => {
         event.preventDefault();
         let orderDetails = {
@@ -34,11 +31,15 @@ window.onload = function () {
             email: "",
             order: ""
         }
-
         orderDetails.name = document.getElementById('nameInput').value;
         orderDetails.email = document.getElementById('emailInput').value;
-        orderDetails.order = document.getElementById('orderInput').value;
-        console.log(orderDetails.name, orderDetails.email, orderDetails.order);
+        let selectedOptions = document.querySelector('input[name=options]:checked');
+        orderDetails.order = selectedOptions.id;
+        console.log(selectedOptions.id);
+
+
+        // orderDetails.order = document.getElementById('orderInput').value;
+        // console.log(orderDetails.name, orderDetails.email, orderDetails.order);
         printOrder(orderDetails);
     });
 };
