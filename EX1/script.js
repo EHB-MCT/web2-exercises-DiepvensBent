@@ -32,9 +32,9 @@ dishes.push({
 window.onload = function () {
     console.log("loaded");
     dishes.forEach(element => {
-        let radio = `<input type="checkbox" id="${element.name}" name="options">
-        <label for="${element.id}">${element.name}</label>`
-        document.getElementById('options').insertAdjacentHTML("afterend", radio);
+        let radioButtons = `<input type="checkbox" id="${element.name}" name="options">
+        <label for="${element.id}">${element.name}</label>`;
+        document.getElementById('options').insertAdjacentHTML("afterend", radioButtons);
     });
 
     document.getElementById("form").addEventListener('submit', event => {
