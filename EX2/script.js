@@ -3,16 +3,11 @@ import Team from "./team.js";
 let pokémon = [];
 let pokémonData = [];
 
-let firstTeam = new Team
+let firstTeam = new Team();
 
 
 
-window.onload = function () {
 
-    getData();
-    console.log(pokémonData);
-    setTimeout(printData, 5000);
-}
 
 function getData() {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
@@ -29,7 +24,17 @@ function getData() {
         });
 }
 
+window.onload = function () {
+
+    getData();
+    console.log(pokémonData);
+    setTimeout(printData, 5000);
+
+}
 function printData() {
+    pokémonData.sort(function (a, b) {
+        return a.id - b.id;
+    });
     for (let el of pokémonData) {
         let pokémonDiv = `<div class="card" style="width: 10rem; margin: 3px;">
         <img class="card-img-top" src="${el.sprites.front_shiny}" alt="Card image cap">
@@ -42,4 +47,35 @@ function printData() {
 
         document.getElementById('displayPokémon').insertAdjacentHTML("beforeend", pokémonDiv);
     };
+    document.querySelectorAll('.btn').forEach(el => {
+        el.addEventListener('click', e => {
+            let id = e.target.id;
+            let p = pokémonData.find(el => el.id == id);
+            let message = firstTeam.addPokemon(p);
+            describeTeam(message);
+        })
+
+    });
 };
+
+function describeTeam(m) {
+    document.getElementById('team').innerHTML = firstTeam.describe();
+
+    if (m) {
+        let alertbox = document.createElement('div');
+        alertbox.classList.add('alert');
+        alertbox.setAttribute('role', 'alert');
+
+        if (m.type == 'SUCCES') {
+            alertbox.classList.add('alert-success');
+        } else {
+            alertbox.classList.add('alert-danger');
+        }
+
+        alertbox.innerText = m.value;
+
+        document.getElementById('messages').innerHTML = '';
+        document.getElementById('messages').appendChild(alertbox);
+
+    }
+}
