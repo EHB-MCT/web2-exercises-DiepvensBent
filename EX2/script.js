@@ -1,16 +1,17 @@
-"use strict";
+import Team from "./team.js";
 
 let pokémon = [];
 let pokémonData = [];
 
+let firstTeam = new Team
+
 
 
 window.onload = function () {
+
     getData();
     console.log(pokémonData);
-    console.log("pokémon data logged");
     setTimeout(printData, 5000);
-    printData();
 }
 
 function getData() {
@@ -18,28 +19,27 @@ function getData() {
         .then(res => res.json())
         .then(data => {
             pokémon = data.results;
-            console.log(pokémon);
-            console.log("first");
-            pokémon.forEach(element => {
+            for (let element of pokémon) {
                 fetch(element.url)
                     .then(response => response.json())
                     .then(data => {
                         pokémonData.push(data);
                     });
-            });
+            };
         });
-    console.log(pokémonData);
-    console.log("second");
 }
 
 function printData() {
-    console.log("print data function started");
-    console.log(pokémonData);
-
     for (let el of pokémonData) {
-        let pokémonDiv = `<img src="" alt="">
-        <p>Nr.${el.order}</p>
-        <h3>${el.name}</h3>`;
-        document.getElementById('displayPokémon').insertAdjacentHTML("afterend", pokémonDiv);
+        let pokémonDiv = `<div class="card" style="width: 10rem; margin: 3px;">
+        <img class="card-img-top" src="${el.sprites.front_shiny}" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">${el.name}</h5>
+        <p class="card-text">${el.types[0].type.name}</p>
+        <a href="#" id="${el.id}" class="btn btn-primary ">Add to team</a>
+        </div>
+        </div>`;
+
+        document.getElementById('displayPokémon').insertAdjacentHTML("beforeend", pokémonDiv);
     };
 };
