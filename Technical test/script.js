@@ -8,6 +8,10 @@ fetch('https://api.spoonacular.com/recipes/findByIngredients?apiKey=966c67d47e75
             console.log(text);
             document.getElementById('div').insertAdjacentHTML("beforeend", text);
         }
-
-
+    });
+fetch('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyDWwfLlV1EXVjvUnu1p0CvWVsdOMNC9-rA')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        //billing not yet enabled request is in review
     })
